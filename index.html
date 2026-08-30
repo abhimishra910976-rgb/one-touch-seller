@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>>
+<html lang="hi">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>One Touch Seller</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     * {
@@ -12,180 +14,503 @@
       padding: 0;
     }
 
-    body {<script>
-  const SUPABASE_URL = "YAHAN_APNA_PROJECT_URL_DALO";
-  const SUPABASE_KEY = "YAHAN_APNI_PUBLISHABLE_KEY_DALO";
-
-  const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
-  console.log("One Touch Seller - Supabase connected");
-</script>
-      font-family: Arial, sans-serif;
+    body {
       min-height: 100vh;
+      font-family: Arial, sans-serif;
       color: white;
       background:
-        linear-gradient(135deg, rgba(5,10,25,.92), rgba(15,55,70,.88)),
-        radial-gradient(circle at top right, #20c997, transparent 35%),
-        radial-gradient(circle at bottom left, #1769aa, transparent 40%);
+        linear-gradient(rgba(5,12,20,.78), rgba(4,20,28,.90)),
+        radial-gradient(circle at 15% 20%, rgba(0,210,170,.28), transparent 30%),
+        radial-gradient(circle at 85% 80%, rgba(0,120,255,.28), transparent 35%);
       display: flex;
-      justify-content: center;
       align-items: center;
-      overflow: hidden;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
     }
 
-    .background {
+    .background-shape {
       position: fixed;
-      inset: 0;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: rgba(0, 210, 170, .08);
+      filter: blur(5px);
+      top: -180px;
+      right: -130px;
       z-index: -1;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(0,255,190,.16), transparent 25%),
-        radial-gradient(circle at 80% 80%, rgba(0,140,255,.18), transparent 30%);
     }
 
-    .container {
-      width: 92%;
-      max-width: 480px;
+    .card {
+      width: 100%;
+      max-width: 460px;
+      padding: 38px 30px;
       text-align: center;
-      padding: 35px 25px;
-      border: 1px solid rgba(255,255,255,.15);
       border-radius: 28px;
-      background: rgba(255,255,255,.08);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 25px 70px rgba(0,0,0,.45);
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 25px 70px rgba(0,0,0,.5);
     }
 
     .logo {
       width: 105px;
       height: 105px;
-      margin: 0 auto 22px;
-      border-radius: 30px;
+      margin: 0 auto 20px;
+      border-radius: 28px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 34px;
+      background: linear-gradient(135deg,#00c995,#087cf5);
+      box-shadow: 0 15px 40px rgba(0,190,160,.30);
+      font-size: 31px;
       font-weight: 900;
       letter-spacing: 2px;
-      background: linear-gradient(135deg, #00d9a5, #087cf5);
-      box-shadow: 0 12px 35px rgba(0,210,170,.35);
-    }
-
-    h1 {
-      font-size: 34px;
-      margin-bottom: 10px;
-      letter-spacing: .5px;
-    }
-
-    .subtitle {
-      color: #cbd5e1;
-      font-size: 15px;
-      margin-bottom: 28px;
     }
 
     .welcome {
-      font-size: 21px;
-      font-weight: bold;
+      font-size: 17px;
+      color: #cbd5e1;
+      margin-bottom: 7px;
+    }
+
+    h1 {
+      font-size: 32px;
       margin-bottom: 8px;
     }
 
-    #date {
-      color: #b7c5d8;
+    .subtitle {
+      color: #b8c6d8;
       font-size: 14px;
-      margin-bottom: 5px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .datetime {
+      margin-bottom: 22px;
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
+    }
+
+    #date {
+      font-size: 13px;
+      color: #cbd5e1;
     }
 
     #time {
+      margin-top: 5px;
       font-size: 18px;
       font-weight: bold;
-      color: #5ff5c5;
-      margin-bottom: 28px;
+      color: #61f3c6;
     }
 
-    .start-btn {
-      width: 100%;
-      border: none;
-      padding: 16px;
-      border-radius: 16px;
-      font-size: 17px;
+    .login-title {
+      text-align: left;
+      margin-bottom: 14px;
+      font-size: 18px;
       font-weight: bold;
-      color: white;
-      cursor: pointer;
-      background: linear-gradient(135deg, #00b98b, #087cf5);
-      box-shadow: 0 12px 30px rgba(0,170,140,.25);
-      transition: .2s;
     }
 
-    .start-btn:active {
-      transform: scale(.97);
+    .field {
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 13px;
+      border: 1px solid rgba(255,255,255,.18);
+      outline: none;
+      background: rgba(0,0,0,.22);
+      color: white;
+      font-size: 15px;
+    }
+
+    input::placeholder {
+      color: #8fa2b5;
+    }
+
+    .password-box {
+      position: relative;
+    }
+
+    .show-password {
+      position: absolute;
+      right: 12px;
+      top: 13px;
+      border: none;
+      background: none;
+      color: #72e8c5;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    button.login {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 14px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      background: linear-gradient(135deg,#00b98b,#087cf5);
+      box-shadow: 0 12px 30px rgba(0,160,140,.25);
+      margin-top: 5px;
+    }
+
+    button.login:disabled {
+      opacity: .65;
+      cursor: wait;
+    }
+
+    #message {
+      min-height: 20px;
+      margin-top: 14px;
+      font-size: 13px;
+    }
+
+    .secure {
+      margin-top: 20px;
+      font-size: 11px;
+      color: #8295aa;
     }
 
     .footer {
-      margin-top: 25px;
-      color: #8fa2b8;
-      font-size: 12px;
+      margin-top: 22px;
+      font-size: 11px;
+      color: #718398;
+    }
+
+    .dashboard {
+      display: none;
+    }
+
+    .dashboard h2 {
+      margin-bottom: 10px;
+    }
+
+    .dashboard p {
+      color: #cbd5e1;
+      margin-bottom: 22px;
+    }
+
+    .logout {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="background"></div>
+  <div class="background-shape"></div>
 
-  <main class="container">
+  <main class="card">
 
-    <div class="logo">OTS</div>
+    <!-- LOGIN SCREEN -->
+    <section id="loginScreen">
 
-    <div class="welcome">Welcome to</div>
+      <div class="logo">OTS</div>
 
-    <h1>One Touch Seller</h1>
+      <div class="welcome">Welcome to</div>
 
-    <p class="subtitle">
-      Smart Business Management System
-    </p>
+      <h1>One Touch Seller</h1>
 
-    <div id="date"></div>
-    <div id="time"></div>
+      <p class="subtitle">
+        Private Business Management System
+      </p>
 
-    <button class="start-btn" onclick="openDashboard()">
-      Open Dashboard →
-    </button>
+      <div class="datetime">
+        <div id="date"></div>
+        <div id="time"></div>
+      </div>
 
-    <div class="footer">
-      © 2026 One Touch Seller
-    </div>
+      <div class="login-title">Owner Login</div>
+
+      <div class="field">
+        <label>Email</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Enter your email"
+          autocomplete="email"
+        >
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+
+        <div class="password-box">
+          <input
+            id="password"
+            type="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+          >
+
+          <button
+            type="button"
+            class="show-password"
+            onclick="togglePassword()"
+          >
+            Show
+          </button>
+        </div>
+      </div>
+
+      <button
+        id="loginButton"
+        class="login"
+        onclick="login()"
+      >
+        Login to One Touch Seller
+      </button>
+
+      <div id="message"></div>
+
+      <div class="secure">
+        🔒 Secure Private Access
+      </div>
+
+      <div class="footer">
+        © 2026 One Touch Seller
+      </div>
+
+    </section>
+
+
+    <!-- TEMPORARY PRIVATE DASHBOARD -->
+    <section id="dashboard" class="dashboard">
+
+      <div class="logo">OTS</div>
+
+      <h2>Welcome to One Touch Seller</h2>
+
+      <p>
+        Owner login successful.
+        Your private business dashboard will appear here.
+      </p>
+
+      <button class="logout" onclick="logout()">
+        Logout
+      </button>
+
+    </section>
 
   </main>
 
+
   <script>
+
+    /* ==========================================
+       SUPABASE CONNECTION
+       ========================================== */
+
+    const SUPABASE_URL =
+      "https://dhqhtmxbqarlcdkuqcbg.supabase.co/rest/v1/";
+
+    const SUPABASE_KEY =
+      "sb_publishable_QQCZaolNSV_fC_aDE__UpA_u-x3grcc";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
+
+    /* ==========================================
+       DATE & TIME
+       ========================================== */
+
     function updateDateTime() {
+
       const now = new Date();
 
-      const date = now.toLocaleDateString('en-IN', {
-        weekday: 'long',
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-      });
+      document.getElementById("date").textContent =
+        now.toLocaleDateString("en-IN", {
+          weekday: "long",
+          day: "2-digit",
+          month: "long",
+          year: "numeric"
+        });
 
-      const time = now.toLocaleTimeString('en-IN', {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
-      });
-
-      document.getElementById("date").textContent = date;
-      document.getElementById("time").textContent = time;
-    }
-
-    function openDashboard() {
-      alert("One Touch Seller Dashboard is ready!");
+      document.getElementById("time").textContent =
+        now.toLocaleTimeString("en-IN", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true
+        });
     }
 
     updateDateTime();
+
     setInterval(updateDateTime, 1000);
+
+
+    /* ==========================================
+       SHOW / HIDE PASSWORD
+       ========================================== */
+
+    function togglePassword() {
+
+      const input =
+        document.getElementById("password");
+
+      const button =
+        document.querySelector(".show-password");
+
+      if (input.type === "password") {
+        input.type = "text";
+        button.textContent = "Hide";
+      } else {
+        input.type = "password";
+        button.textContent = "Show";
+      }
+    }
+
+
+    /* ==========================================
+       LOGIN
+       ========================================== */
+
+    async function login() {
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+      const message =
+        document.getElementById("message");
+
+      const button =
+        document.getElementById("loginButton");
+
+      if (!email || !password) {
+
+        message.textContent =
+          "Email और password दोनों भरें।";
+
+        message.style.color = "#ffb4b4";
+
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Logging in...";
+
+      message.textContent = "";
+
+      const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+      if (error) {
+
+        message.textContent =
+          "Login failed: " + error.message;
+
+        message.style.color = "#ffb4b4";
+
+        button.disabled = false;
+        button.textContent =
+          "Login to One Touch Seller";
+
+        return;
+      }
+
+      message.textContent =
+        "Login successful!";
+
+      message.style.color = "#61f3c6";
+
+      showDashboard();
+
+      button.disabled = false;
+      button.textContent =
+        "Login to One Touch Seller";
+    }
+
+
+    /* ==========================================
+       DASHBOARD
+       ========================================== */
+
+    function showDashboard() {
+
+      document.getElementById("loginScreen")
+        .style.display = "none";
+
+      document.getElementById("dashboard")
+        .style.display = "block";
+    }
+
+
+    /* ==========================================
+       LOGOUT
+       ========================================== */
+
+    async function logout() {
+
+      await supabaseClient.auth.signOut();
+
+      document.getElementById("dashboard")
+        .style.display = "none";
+
+      document.getElementById("loginScreen")
+        .style.display = "block";
+
+      document.getElementById("password")
+        .value = "";
+
+      document.getElementById("message")
+        .textContent = "";
+    }
+
+
+    /* ==========================================
+       CHECK EXISTING SESSION
+       ========================================== */
+
+    async function checkSession() {
+
+      const { data } =
+        await supabaseClient.auth.getSession();
+
+      if (data.session) {
+        showDashboard();
+      }
+    }
+
+    checkSession();
+
   </script>
 
 </body>
