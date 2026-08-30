@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>One Touch Seller</title>
@@ -12,7 +12,17 @@
       padding: 0;
     }
 
-    body {
+    body {<script>
+  const SUPABASE_URL = "YAHAN_APNA_PROJECT_URL_DALO";
+  const SUPABASE_KEY = "YAHAN_APNI_PUBLISHABLE_KEY_DALO";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  console.log("One Touch Seller - Supabase connected");
+</script>
       font-family: Arial, sans-serif;
       min-height: 100vh;
       color: white;
