@@ -274,14 +274,15 @@ SUPABASE
 ========================= */
 
 const SUPABASE_URL =
-"https://dhqhtmxbqarlcdkuqcbg.supabase.co/rest/v1/";
+"https://dhqhtmxbqarlcdkuqcbg.supabase.co";
 
+const SUPABASE_KEY =
 "sb_publishable_QQCZaolNSV_fC_aDE__UpA_u-x3grcc";
 
 const supabaseClient =
 window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+  SUPABASE_URL,
+  SUPABASE_KEY
 );
 
 
