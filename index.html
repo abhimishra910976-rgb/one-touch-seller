@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One Touch Seller</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(5,10,25,.92), rgba(15,55,70,.88)),
+        radial-gradient(circle at top right, #20c997, transparent 35%),
+        radial-gradient(circle at bottom left, #1769aa, transparent 40%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(0,255,190,.16), transparent 25%),
+        radial-gradient(circle at 80% 80%, rgba(0,140,255,.18), transparent 30%);
+    }
+
+    .container {
+      width: 92%;
+      max-width: 480px;
+      text-align: center;
+      padding: 35px 25px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 28px;
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 25px 70px rgba(0,0,0,.45);
+    }
+
+    .logo {
+      width: 105px;
+      height: 105px;
+      margin: 0 auto 22px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #00d9a5, #087cf5);
+      box-shadow: 0 12px 35px rgba(0,210,170,.35);
+    }
+
+    h1 {
+      font-size: 34px;
+      margin-bottom: 10px;
+      letter-spacing: .5px;
+    }
+
+    .subtitle {
+      color: #cbd5e1;
+      font-size: 15px;
+      margin-bottom: 28px;
+    }
+
+    .welcome {
+      font-size: 21px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    #date {
+      color: #b7c5d8;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    #time {
+      font-size: 18px;
+      font-weight: bold;
+      color: #5ff5c5;
+      margin-bottom: 28px;
+    }
+
+    .start-btn {
+      width: 100%;
+      border: none;
+      padding: 16px;
+      border-radius: 16px;
+      font-size: 17px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      background: linear-gradient(135deg, #00b98b, #087cf5);
+      box-shadow: 0 12px 30px rgba(0,170,140,.25);
+      transition: .2s;
+    }
+
+    .start-btn:active {
+      transform: scale(.97);
+    }
+
+    .footer {
+      margin-top: 25px;
+      color: #8fa2b8;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="background"></div>
+
+  <main class="container">
+
+    <div class="logo">OTS</div>
+
+    <div class="welcome">Welcome to</div>
+
+    <h1>One Touch Seller</h1>
+
+    <p class="subtitle">
+      Smart Business Management System
+    </p>
+
+    <div id="date"></div>
+    <div id="time"></div>
+
+    <button class="start-btn" onclick="openDashboard()">
+      Open Dashboard →
+    </button>
+
+    <div class="footer">
+      © 2026 One Touch Seller
+    </div>
+
+  </main>
+
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+
+      const date = now.toLocaleDateString('en-IN', {
+        weekday: 'long',
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+      });
+
+      const time = now.toLocaleTimeString('en-IN', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      });
+
+      document.getElementById("date").textContent = date;
+      document.getElementById("time").textContent = time;
+    }
+
+    function openDashboard() {
+      alert("One Touch Seller Dashboard is ready!");
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+  </script>
+
+</body>
+</html>
