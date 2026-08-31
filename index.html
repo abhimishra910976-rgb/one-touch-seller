@@ -8,262 +8,810 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --primary:#0ea5e9;
+  --secondary:#14b8a6;
+  --dark:#071827;
+  --dark2:#0b2538;
+  --text:#172033;
+  --muted:#64748b;
+  --white:#ffffff;
+  --border:#e2e8f0;
+  --shadow:0 15px 45px rgba(15,23,42,.10);
+}
+
 body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#f4f7fb;
- color:#172033
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:#f1f5f9;
 }
-button,input,select{font:inherit}
+
+/* ================= LOGIN ================= */
+
 .login{
- min-height:100vh;
- display:flex;
- align-items:center;
- justify-content:center;
- padding:20px;
- background:linear-gradient(135deg,#071b2b,#075f63)
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 15% 20%,#0ea5e955,transparent 30%),
+    radial-gradient(circle at 85% 80%,#14b8a655,transparent 30%),
+    linear-gradient(135deg,#04111d,#09263a 50%,#063b43);
 }
-.card{
- width:100%;
- max-width:430px;
- background:white;
- padding:30px;
- border-radius:24px;
- box-shadow:0 20px 60px #0004
+
+.login::before{
+  content:"";
+  position:absolute;
+  width:450px;
+  height:450px;
+  border-radius:50%;
+  background:#0ea5e922;
+  top:-180px;
+  right:-150px;
+  filter:blur(10px);
 }
+
+.login-card{
+  width:100%;
+  max-width:440px;
+  padding:35px;
+  position:relative;
+  z-index:2;
+  border:1px solid #ffffff22;
+  border-radius:28px;
+  background:#ffffffee;
+  backdrop-filter:blur(20px);
+  box-shadow:0 30px 80px #0007;
+}
+
 .logo{
- width:90px;height:90px;
- margin:auto auto 18px;
- border-radius:25px;
- display:flex;
- align-items:center;
- justify-content:center;
- background:linear-gradient(135deg,#00b98b,#087cf5);
- color:white;font-size:27px;font-weight:bold
+  width:88px;
+  height:88px;
+  margin:0 auto 18px;
+  border-radius:25px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:1px;
+  background:linear-gradient(135deg,#0ea5e9,#14b8a6);
+  box-shadow:0 15px 35px #0ea5e955;
 }
-h1{text-align:center;margin:5px 0}
-.sub{text-align:center;color:#687386;margin-bottom:25px}
+
+.login-card h1{
+  text-align:center;
+  font-size:28px;
+  margin-bottom:7px;
+}
+
+.subtitle{
+  text-align:center;
+  color:var(--muted);
+  margin-bottom:28px;
+}
+
+label{
+  display:block;
+  font-weight:700;
+  font-size:14px;
+  margin:10px 0 7px;
+}
+
 input,select{
- width:100%;
- padding:13px;
- border:1px solid #d9e0e8;
- border-radius:11px;
- margin:7px 0 14px;
- background:white
+  width:100%;
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:13px;
+  padding:14px;
+  outline:none;
+  transition:.2s;
 }
+
+input:focus,select:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 4px #0ea5e918;
+}
+
 .btn{
- width:100%;
- border:0;
- padding:13px;
- border-radius:11px;
- background:#087cf5;
- color:white;
- font-weight:bold;
- cursor:pointer
+  width:100%;
+  border:0;
+  padding:14px 18px;
+  border-radius:13px;
+  color:#fff;
+  background:linear-gradient(135deg,#0ea5e9,#14b8a6);
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:0 10px 25px #0ea5e933;
+  transition:.2s;
 }
-.msg{text-align:center;margin-top:12px;color:#d33}
-.app{display:none;min-height:100vh}
+
+.btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 14px 30px #0ea5e944;
+}
+
+.msg{
+  min-height:22px;
+  text-align:center;
+  color:#dc2626;
+  margin-top:13px;
+  font-size:14px;
+}
+
+/* ================= APP ================= */
+
+.app{
+  display:none;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 0% 0%,#0ea5e910,transparent 25%),
+    radial-gradient(circle at 100% 100%,#14b8a610,transparent 25%),
+    #f1f5f9;
+}
+
+/* ================= HEADER ================= */
+
 .header{
- background:#09263a;
- color:white;
- padding:16px 20px;
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:15px
+  position:sticky;
+  top:0;
+  z-index:50;
+  padding:14px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  color:#fff;
+  background:linear-gradient(135deg,#061a2b,#0b3041);
+  box-shadow:0 5px 25px #0003;
 }
-.header strong{font-size:20px}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.brand-logo{
+  width:43px;
+  height:43px;
+  border-radius:13px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-weight:900;
+  background:linear-gradient(135deg,#0ea5e9,#14b8a6);
+}
+
+.brand-text strong{
+  display:block;
+  font-size:18px;
+}
+
+.brand-text small{
+  color:#b8d5df;
+  font-size:11px;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.datetime{
+  text-align:right;
+  font-size:12px;
+  line-height:1.5;
+  color:#d8eef5;
+}
+
 .logout{
- border:1px solid #ffffff55;
- background:transparent;
- color:white;
- padding:8px 13px;
- border-radius:8px
+  border:1px solid #ffffff33;
+  background:#ffffff12;
+  color:#fff;
+  padding:9px 14px;
+  border-radius:10px;
+  cursor:pointer;
 }
-.content{padding:20px;max-width:1200px;margin:auto}
+
+/* ================= CONTENT ================= */
+
+.content{
+  width:100%;
+  max-width:1250px;
+  margin:auto;
+  padding:28px 20px 50px;
+}
+
+.welcome{
+  margin-bottom:25px;
+}
+
+.welcome h2{
+  font-size:28px;
+  margin-bottom:7px;
+}
+
+.welcome p{
+  color:var(--muted);
+}
+
+/* ================= STATS ================= */
+
 .cards{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
- gap:15px
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
 }
+
 .stat{
- background:white;
- padding:20px;
- border-radius:16px;
- box-shadow:0 4px 18px #10204012
+  position:relative;
+  overflow:hidden;
+  padding:22px;
+  border-radius:20px;
+  background:#fff;
+  box-shadow:var(--shadow);
+  border:1px solid #ffffff;
 }
-.stat b{font-size:25px;display:block;margin-top:8px}
+
+.stat::after{
+  content:"";
+  position:absolute;
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:#0ea5e910;
+  right:-25px;
+  top:-25px;
+}
+
+.stat-icon{
+  font-size:28px;
+  margin-bottom:12px;
+}
+
+.stat-title{
+  color:var(--muted);
+  font-size:14px;
+  font-weight:700;
+}
+
+.stat b{
+  display:block;
+  margin-top:7px;
+  font-size:29px;
+}
+
+/* ================= MENU ================= */
+
+.section-title{
+  margin:30px 0 14px;
+  font-size:20px;
+}
+
 .menu{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
- gap:12px;margin-top:20px
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
 }
+
 .menu button{
- padding:18px;
- border:0;
- border-radius:15px;
- background:white;
- box-shadow:0 4px 18px #10204012;
- text-align:left;
- cursor:pointer
+  border:1px solid #e2e8f0;
+  background:#fff;
+  padding:20px;
+  border-radius:18px;
+  text-align:left;
+  cursor:pointer;
+  box-shadow:0 5px 20px #1020400b;
+  transition:.2s;
 }
+
+.menu button:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 30px #10204018;
+  border-color:#0ea5e933;
+}
+
+.menu-icon{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.menu-title{
+  display:block;
+  font-size:16px;
+  margin-bottom:5px;
+}
+
+.menu-desc{
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* ================= PANEL ================= */
+
 .panel{
- display:none;
- margin-top:20px;
- background:white;
- padding:20px;
- border-radius:18px
+  display:none;
+  margin-top:25px;
+  padding:24px;
+  border-radius:22px;
+  background:#fff;
+  box-shadow:var(--shadow);
 }
+
+.panel-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.panel-head h2{
+  font-size:21px;
+}
+
+.close-btn{
+  border:0;
+  background:#f1f5f9;
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
 .row{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:15px
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
 }
+
+.form-box{
+  padding:18px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:#f8fafc;
+}
+
+.form-box h3{
+  margin-bottom:8px;
+}
+
+.list-title{
+  margin:25px 0 10px;
+  font-size:17px;
+}
+
 .list{
- margin-top:15px
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
 }
+
 .item{
- padding:12px;
- border-bottom:1px solid #eee
+  padding:14px;
+  background:#fff;
+  border-bottom:1px solid #edf2f7;
 }
+
+.item:last-child{
+  border-bottom:0;
+}
+
+.empty{
+  padding:18px;
+  color:var(--muted);
+  text-align:center;
+}
+
+/* ================= FUTURE ================= */
+
+.coming{
+  opacity:.72;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .menu{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
 @media(max-width:600px){
- .row{grid-template-columns:1fr}
- .content{padding:12px}
- .header{padding:13px}
+
+  .login-card{
+    padding:25px 20px;
+  }
+
+  .header{
+    padding:11px 13px;
+  }
+
+  .brand-text strong{
+    font-size:15px;
+  }
+
+  .brand-text small{
+    display:none;
+  }
+
+  .datetime{
+    display:none;
+  }
+
+  .content{
+    padding:20px 13px 40px;
+  }
+
+  .welcome h2{
+    font-size:23px;
+  }
+
+  .cards{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .stat{
+    padding:16px;
+  }
+
+  .stat-icon{
+    font-size:23px;
+  }
+
+  .stat b{
+    font-size:23px;
+  }
+
+  .menu{
+    grid-template-columns:1fr;
+  }
+
+  .row{
+    grid-template-columns:1fr;
+  }
+
+  .panel{
+    padding:17px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
+<!-- ================= LOGIN ================= -->
+
 <section id="login" class="login">
-<div class="card">
 
-<div class="logo">OTS</div>
+  <div class="login-card">
 
-<h1>One Touch Seller</h1>
-<p class="sub">Private Business Management System</p>
+    <div class="logo">OTS</div>
 
-<label>Email</label>
-<input id="email" type="email" placeholder="Your email">
+    <h1>One Touch Seller</h1>
 
-<label>Password</label>
-<input id="password" type="password" placeholder="Your password">
+    <p class="subtitle">
+      Private Business Management System
+    </p>
 
-<button class="btn" onclick="login()">Login</button>
+    <label>Email</label>
+    <input
+      id="email"
+      type="email"
+      placeholder="Enter your email"
+    >
 
-<div id="loginMsg" class="msg"></div>
+    <label>Password</label>
+    <input
+      id="password"
+      type="password"
+      placeholder="Enter your password"
+    >
 
-</div>
+    <button class="btn" onclick="login()">
+      🔐 Login
+    </button>
+
+    <div id="loginMsg" class="msg"></div>
+
+  </div>
+
 </section>
 
 
-<!-- APP -->
+<!-- ================= APP ================= -->
+
 <section id="app" class="app">
 
 <header class="header">
-<strong>ONE TOUCH SELLER</strong>
-<button class="logout" onclick="logout()">Logout</button>
+
+  <div class="brand">
+
+    <div class="brand-logo">
+      OTS
+    </div>
+
+    <div class="brand-text">
+      <strong>ONE TOUCH SELLER</strong>
+      <small>Business Management System</small>
+    </div>
+
+  </div>
+
+  <div class="header-right">
+
+    <div class="datetime">
+      <div id="currentDate">Loading...</div>
+      <div id="currentTime">Loading...</div>
+    </div>
+
+    <button class="logout" onclick="logout()">
+      Logout
+    </button>
+
+  </div>
+
 </header>
+
 
 <main class="content">
 
-<h2>Business Dashboard</h2>
+  <div class="welcome">
 
-<div class="cards">
+    <h2>👋 Welcome Back</h2>
 
-<div class="stat">
-Production
-<b id="productionCount">0</b>
-</div>
+    <p>
+      Manage your complete business from one place.
+    </p>
 
-<div class="stat">
-Sales
-<b id="salesCount">0</b>
-</div>
-
-<div class="stat">
-Products
-<b id="productCount">0</b>
-</div>
-
-<div class="stat">
-Sizes
-<b id="sizeCount">0</b>
-</div>
-
-</div>
+  </div>
 
 
-<div class="menu">
+  <!-- ================= STATS ================= -->
 
-<button onclick="openPanel('productPanel')">
-📦 <b>Products & Sizes</b><br>
-Add product and size
-</button>
+  <div class="cards">
 
-<button onclick="alert('Production module next')">
-🏭 <b>Production</b><br>
-Production entry
-</button>
+    <div class="stat">
+      <div class="stat-icon">🏭</div>
+      <div class="stat-title">Production Batches</div>
+      <b id="productionCount">0</b>
+    </div>
 
-<button onclick="alert('Stock module next')">
-📊 <b>Stock</b><br>
-View stock
-</button>
+    <div class="stat">
+      <div class="stat-icon">🛒</div>
+      <div class="stat-title">Sales</div>
+      <b id="salesCount">0</b>
+    </div>
 
-<button onclick="alert('Sales module next')">
-🛒 <b>Sales</b><br>
-Sales entry
-</button>
+    <div class="stat">
+      <div class="stat-icon">📦</div>
+      <div class="stat-title">Products</div>
+      <b id="productCount">0</b>
+    </div>
 
-<button onclick="alert('Purchase module next')">
-🚚 <b>Purchase</b><br>
-Purchase entry
-</button>
+    <div class="stat">
+      <div class="stat-icon">📏</div>
+      <div class="stat-title">Sizes</div>
+      <b id="sizeCount">0</b>
+    </div>
 
-<button onclick="alert('Wastage module next')">
-♻️ <b>Wastage / Damage</b><br>
-Damage tracking
-</button>
-
-</div>
+  </div>
 
 
-<!-- PRODUCT PANEL -->
-<div id="productPanel" class="panel">
+  <!-- ================= MENU ================= -->
 
-<h2>Product & Size Master</h2>
+  <h3 class="section-title">
+    Business Modules
+  </h3>
 
-<div class="row">
+  <div class="menu">
 
-<div>
-<label>Product Name</label>
-<input id="productName" placeholder="Example: Paper Plate">
-<button class="btn" onclick="addProduct()">+ Add Product</button>
-</div>
+    <button onclick="openPanel('productPanel')">
+      <div class="menu-icon">📦</div>
+      <span class="menu-title"><b>Products & Sizes</b></span>
+      <span class="menu-desc">
+        Add and manage products and sizes
+      </span>
+    </button>
 
-<div>
-<label>Size</label>
-<input id="sizeName" placeholder="Example: 14 inch">
-<button class="btn" onclick="addSize()">+ Add Size</button>
-</div>
 
-</div>
+    <button class="coming" onclick="showComing('Production')">
+      <div class="menu-icon">🏭</div>
+      <span class="menu-title"><b>Production</b></span>
+      <span class="menu-desc">
+        Production entry & batches
+      </span>
+    </button>
 
-<hr>
 
-<h3>Products</h3>
-<div id="productsList" class="list"></div>
+    <button class="coming" onclick="showComing('Stock')">
+      <div class="menu-icon">📊</div>
+      <span class="menu-title"><b>Stock</b></span>
+      <span class="menu-desc">
+        Live inventory management
+      </span>
+    </button>
 
-<h3>Sizes</h3>
-<div id="sizesList" class="list"></div>
 
-</div>
+    <button class="coming" onclick="showComing('Sales')">
+      <div class="menu-icon">🛒</div>
+      <span class="menu-title"><b>Sales</b></span>
+      <span class="menu-desc">
+        Sales & customer entries
+      </span>
+    </button>
+
+
+    <button class="coming" onclick="showComing('Purchase')">
+      <div class="menu-icon">🚚</div>
+      <span class="menu-title"><b>Purchase</b></span>
+      <span class="menu-desc">
+        Supplier & purchase records
+      </span>
+    </button>
+
+
+    <button class="coming" onclick="showComing('Wastage / Damage')">
+      <div class="menu-icon">♻️</div>
+      <span class="menu-title"><b>Wastage / Damage</b></span>
+      <span class="menu-desc">
+        Damage & wastage tracking
+      </span>
+    </button>
+
+
+    <button class="coming" onclick="showComing('Raw Material')">
+      <div class="menu-icon">🧻</div>
+      <span class="menu-title"><b>Raw Material</b></span>
+      <span class="menu-desc">
+        Paper & material management
+      </span>
+    </button>
+
+
+    <button class="coming" onclick="showComing('Labour')">
+      <div class="menu-icon">👷</div>
+      <span class="menu-title"><b>Labour</b></span>
+      <span class="menu-desc">
+        Worker & payment tracking
+      </span>
+    </button>
+
+
+    <button class="coming" onclick="showComing('Expenses')">
+      <div class="menu-icon">💰</div>
+      <span class="menu-title"><b>Expenses</b></span>
+      <span class="menu-desc">
+        Business expense tracking
+      </span>
+    </button>
+
+
+    <button class="coming" onclick="showComing('Partners')">
+      <div class="menu-icon">🤝</div>
+      <span class="menu-title"><b>Partners</b></span>
+      <span class="menu-desc">
+        Partner investment & profit
+      </span>
+    </button>
+
+
+    <button class="coming" onclick="showComing('Reports')">
+      <div class="menu-icon">📈</div>
+      <span class="menu-title"><b>Reports</b></span>
+      <span class="menu-desc">
+        Business reports & profit
+      </span>
+    </button>
+
+
+    <button class="coming" onclick="showComing('Online Orders')">
+      <div class="menu-icon">🛍️</div>
+      <span class="menu-title"><b>Online Orders</b></span>
+      <span class="menu-desc">
+        Amazon & Flipkart integration
+      </span>
+    </button>
+
+  </div>
+
+
+  <!-- ================= PRODUCT PANEL ================= -->
+
+  <div id="productPanel" class="panel">
+
+    <div class="panel-head">
+
+      <h2>📦 Product & Size Master</h2>
+
+      <button
+        class="close-btn"
+        onclick="closePanel('productPanel')"
+      >
+        ✕
+      </button>
+
+    </div>
+
+
+    <div class="row">
+
+      <div class="form-box">
+
+        <h3>📦 Add Product</h3>
+
+        <label>Product Name</label>
+
+        <input
+          id="productName"
+          placeholder="Example: Paper Plate"
+        >
+
+        <button class="btn" onclick="addProduct()">
+          + Add Product
+        </button>
+
+      </div>
+
+
+      <div class="form-box">
+
+        <h3>📏 Add Size</h3>
+
+        <label>Size</label>
+
+        <input
+          id="sizeName"
+          placeholder="Example: 6 inch"
+        >
+
+        <button class="btn" onclick="addSize()">
+          + Add Size
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <h3 class="list-title">
+      Products
+    </h3>
+
+    <div id="productsList" class="list">
+      <div class="empty">Loading...</div>
+    </div>
+
+
+    <h3 class="list-title">
+      Sizes
+    </h3>
+
+    <div id="sizesList" class="list">
+      <div class="empty">Loading...</div>
+    </div>
+
+  </div>
 
 </main>
+
 </section>
 
 
@@ -287,37 +835,89 @@ window.supabase.createClient(
 
 
 /* =========================
+LIVE DATE & TIME
+========================= */
+
+function updateDateTime(){
+
+  const now = new Date();
+
+  const date =
+    now.toLocaleDateString(
+      "en-IN",
+      {
+        weekday:"short",
+        day:"2-digit",
+        month:"short",
+        year:"numeric"
+      }
+    );
+
+  const time =
+    now.toLocaleTimeString(
+      "en-IN",
+      {
+        hour:"2-digit",
+        minute:"2-digit",
+        second:"2-digit",
+        hour12:true
+      }
+    );
+
+  document.getElementById("currentDate")
+    .textContent = date;
+
+  document.getElementById("currentTime")
+    .textContent = time;
+}
+
+setInterval(updateDateTime,1000);
+updateDateTime();
+
+
+/* =========================
 LOGIN
 ========================= */
 
 async function login(){
 
-const email =
-document.getElementById("email").value.trim();
+  const email =
+    document.getElementById("email")
+    .value.trim();
 
-const password =
-document.getElementById("password").value;
+  const password =
+    document.getElementById("password")
+    .value;
 
-const msg =
-document.getElementById("loginMsg");
+  const msg =
+    document.getElementById("loginMsg");
 
-if(!email || !password){
-msg.textContent="Email और password भरें";
-return;
-}
+  msg.textContent="";
 
-const {error} =
-await supabaseClient.auth.signInWithPassword({
-email,
-password
-});
+  if(!email || !password){
 
-if(error){
-msg.textContent=error.message;
-return;
-}
+    msg.textContent =
+      "Email और password भरें";
 
-showApp();
+    return;
+  }
+
+  const {error} =
+    await supabaseClient.auth
+    .signInWithPassword({
+      email,
+      password
+    });
+
+  if(error){
+
+    msg.textContent =
+      error.message;
+
+    return;
+  }
+
+  showApp();
 }
 
 
@@ -327,105 +927,164 @@ SESSION
 
 async function checkSession(){
 
-const {data} =
-await supabaseClient.auth.getSession();
+  const {data} =
+    await supabaseClient.auth
+    .getSession();
 
-if(data.session){
-showApp();
+  if(data.session){
+
+    showApp();
+
+  }
+
 }
-}
+
 
 function showApp(){
 
-document.getElementById("login")
-.style.display="none";
+  document.getElementById("login")
+    .style.display="none";
 
-document.getElementById("app")
-.style.display="block";
+  document.getElementById("app")
+    .style.display="block";
 
-loadData();
-}
+  loadData();
 
-async function logout(){
-
-await supabaseClient.auth.signOut();
-
-location.reload();
 }
 
 
 /* =========================
-PRODUCT
+LOGOUT
+========================= */
+
+async function logout(){
+
+  await supabaseClient.auth
+    .signOut();
+
+  location.reload();
+
+}
+
+
+/* =========================
+ADD PRODUCT
 ========================= */
 
 async function addProduct(){
 
-const name =
-document.getElementById("productName")
-.value.trim();
+  const input =
+    document.getElementById("productName");
 
-if(!name){
-alert("Product name डालें");
-return;
-}
+  const name =
+    input.value.trim();
 
-const {data:{user}} =
-await supabaseClient.auth.getUser();
-console.log("Logged in user:", user);
-const {error} =
-await supabaseClient
-.from("products")
-.insert({
-owner_id:user.id,
-name:name
-});
+  if(!name){
 
-if(error){
-alert(error.message);
-return;
-}
+    alert("Product name डालें");
 
-document.getElementById("productName").value="";
+    return;
+  }
 
-loadData();
+  const {
+    data:{
+      user
+    }
+  } =
+    await supabaseClient.auth
+    .getUser();
+
+  if(!user){
+
+    alert("Please login again.");
+
+    return;
+  }
+
+  const {error} =
+    await supabaseClient
+    .from("products")
+    .insert({
+
+      owner_id:user.id,
+      name:name
+
+    });
+
+  if(error){
+
+    alert(error.message);
+
+    return;
+  }
+
+  input.value="";
+
+  alert("✅ Product successfully added");
+
+  loadData();
+
 }
 
 
 /* =========================
-SIZE
+ADD SIZE
 ========================= */
 
 async function addSize(){
 
-const name =
-document.getElementById("sizeName")
-.value.trim();
+  const input =
+    document.getElementById("sizeName");
 
-if(!name){
-alert("Size डालें");
-return;
-}
+  const name =
+    input.value.trim();
 
-const {data:{user}} =
-await supabaseClient.auth.getUser();
+  if(!name){
 
-const {error} =
-await supabaseClient
-.from("product_sizes")
-.insert({
-owner_id:user.id,
-size_name:name,
-unit:"inch"
-});
+    alert("Size डालें");
 
-if(error){
-alert(error.message);
-return;
-}
+    return;
+  }
 
-document.getElementById("sizeName").value="";
+  const {
+    data:{
+      user
+    }
+  } =
+    await supabaseClient.auth
+    .getUser();
 
-loadData();
+  if(!user){
+
+    alert("Please login again.");
+
+    return;
+  }
+
+  const {error} =
+    await supabaseClient
+    .from("product_sizes")
+    .insert({
+
+      owner_id:user.id,
+      size_name:name,
+      unit:"inch"
+
+    });
+
+  if(error){
+
+    alert(error.message);
+
+    return;
+  }
+
+  input.value="";
+
+  alert("✅ Size successfully added");
+
+  loadData();
+
 }
 
 
@@ -435,106 +1094,190 @@ LOAD DATA
 
 async function loadData(){
 
-const {data:{user}} =
-await supabaseClient.auth.getUser();
+  const {
+    data:{
+      user
+    }
+  } =
+    await supabaseClient.auth
+    .getUser();
 
-if(!user)return;
+  if(!user){
 
-
-/* PRODUCTS */
-
-const {data:products} =
-await supabaseClient
-.from("products")
-.select("*")
-.order("created_at",{ascending:false});
-
-document.getElementById("productCount")
-.textContent=products?.length || 0;
-
-document.getElementById("productsList")
-.innerHTML=(products||[])
-.map(p=>`
-<div class="item">
-📦 ${escapeHtml(p.name)}
-</div>
-`).join("") || "कोई product नहीं";
+    return;
+  }
 
 
-/* SIZES */
+  /* PRODUCTS */
 
-const {data:sizes} =
-await supabaseClient
-.from("product_sizes")
-.select("*")
-.order("created_at",{ascending:false});
+  const {
+    data:products,
+    error:productError
+  } =
+    await supabaseClient
+    .from("products")
+    .select("*")
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
 
-document.getElementById("sizeCount")
-.textContent=sizes?.length || 0;
+  if(productError){
 
-document.getElementById("sizesList")
-.innerHTML=(sizes||[])
-.map(s=>`
-<div class="item">
-📏 ${escapeHtml(s.size_name)}
-</div>
-`).join("") || "कोई size नहीं";
+    console.log(productError);
 
+  }
 
-/* SALES COUNT */
-
-const {count:salesCount} =
-await supabaseClient
-.from("sales")
-.select("*",{count:"exact",head:true});
-
-document.getElementById("salesCount")
-.textContent=salesCount || 0;
+  document.getElementById(
+    "productCount"
+  ).textContent =
+    products?.length || 0;
 
 
-/* PRODUCTION COUNT */
+  document.getElementById(
+    "productsList"
+  ).innerHTML =
+    (products || [])
+    .map(p => `
+      <div class="item">
+        📦 ${escapeHtml(p.name)}
+      </div>
+    `)
+    .join("")
+    ||
+    `<div class="empty">
+      कोई product नहीं
+    </div>`;
 
-const {count:productionCount} =
-await supabaseClient
-.from("production_batches")
-.select("*",{count:"exact",head:true});
 
-document.getElementById("productionCount")
-.textContent=productionCount || 0;
+  /* SIZES */
+
+  const {
+    data:sizes,
+    error:sizeError
+  } =
+    await supabaseClient
+    .from("product_sizes")
+    .select("*")
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
+
+  if(sizeError){
+
+    console.log(sizeError);
+
+  }
+
+  document.getElementById(
+    "sizeCount"
+  ).textContent =
+    sizes?.length || 0;
+
+
+  document.getElementById(
+    "sizesList"
+  ).innerHTML =
+    (sizes || [])
+    .map(s => `
+      <div class="item">
+        📏 ${escapeHtml(s.size_name)}
+      </div>
+    `)
+    .join("")
+    ||
+    `<div class="empty">
+      कोई size नहीं
+    </div>`;
+
+
+  /* SALES */
+
+  const {
+    count:salesCount
+  } =
+    await supabaseClient
+    .from("sales")
+    .select(
+      "*",
+      {
+        count:"exact",
+        head:true
+      }
+    );
+
+  document.getElementById(
+    "salesCount"
+  ).textContent =
+    salesCount || 0;
+
+
+  /* PRODUCTION */
+
+  const {
+    count:productionCount
+  } =
+    await supabaseClient
+    .from("production_batches")
+    .select(
+      "*",
+      {
+        count:"exact",
+        head:true
+      }
+    );
+
+  document.getElementById(
+    "productionCount"
+  ).textContent =
+    productionCount || 0;
 
 }
 
 
 /* =========================
-PANEL
+PANELS
 ========================= */
 
 function openPanel(id){
 
-document.getElementById(id)
-.style.display="block";
+  document.getElementById(id)
+    .style.display="block";
+
+  document.getElementById(id)
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+
+function closePanel(id){
+
+  document.getElementById(id)
+    .style.display="none";
 
 }
 
 
 /* =========================
-SAFE TEXT
+COMING SOON
 ========================= */
 
-function escapeHtml(text){
+function showComing(name){
 
-return String(text)
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
+  alert(
+    name +
+    " module अभी build करना बाकी है.\n\n" +
+    "इसे अगले चरण में पूरा working module बनाया जाएगा।"
+  );
+
 }
 
 
-checkSession();
-
-</script>
-
-</body>
-</html>
+/* =========================
